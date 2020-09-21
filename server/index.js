@@ -9,12 +9,13 @@ app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+app.use(express.static("./public"));
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "cdg.sh - Short URL",
-  });
-});
+app.post("/url/:id", (req, res) => {});
+
+app.get("/:id", (req, res) => {});
+
+app.post("/url", (req, res) => {});
 
 const port = process.env.PORT || 1337;
 
