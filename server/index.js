@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("./public"));
 
-app.post("/url/:id", (req, res) => {});
+app.get("/url/:id", (req, res) => {});
 
 app.get("/:id", (req, res) => {});
 
