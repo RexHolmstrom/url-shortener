@@ -11,11 +11,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("./public"));
 
-app.get("/url/:id", (req, res) => {});
+//app.get("/url/:id", (req, res) => {});
 
-app.get("/:id", (req, res) => {});
+//app.get("/:id", (req, res) => {});
 
-app.post("/url", (req, res) => {});
+//app.post("/url", (req, res) => {});
 
 const port = process.env.PORT || 1337;
 
