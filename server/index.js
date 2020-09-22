@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const yup = require("yup");
+const nanoid = require("nanoid");
 
 const app = express();
 
@@ -24,7 +25,19 @@ const schema = yup.object().shape({
   url: yup.string().trim().url().required(),
 });
 
-app.post("/url", (req, res) => {});
+app.post("/url", async (req, res) => {
+  const { slug, url } = req.body;
+  try {
+    if (!slug) {
+      slug = nanoid();
+    }
+    slug = slug.toLowerCase();
+    await schema.validate({
+      slug,
+      url,
+    });
+  } catch (error) {}
+});
 
 const port = process.env.PORT || 1337;
 
