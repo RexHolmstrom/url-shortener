@@ -25,7 +25,7 @@ const schema = yup.object().shape({
   url: yup.string().trim().url().required(),
 });
 
-app.post("/url", async (req, res) => {
+app.post("/url", async (req, res, next) => {
   const { slug, url } = req.body;
   try {
     await schema.validate({
@@ -43,6 +43,17 @@ app.post("/url", async (req, res) => {
   } catch (error) {
     next(error);
   }
+});
+
+app.use((error, req, res, next) => {
+  if (error.status) {
+    res.status(error.status);
+  }
+  res.json({
+    message: error.message,
+    stack:
+      process.env.NODE_ENV === "production" ? "pancake stack" : error.stack,
+  });
 });
 
 const port = process.env.PORT || 1337;
