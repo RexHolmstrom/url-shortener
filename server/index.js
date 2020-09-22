@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const yup = require("yup");
 
 const app = express();
 
@@ -15,7 +16,15 @@ app.use(express.static("./public"));
 
 //app.get("/:id", (req, res) => {});
 
-//app.post("/url", (req, res) => {});
+const schema = yup.object().shape({
+  slug: yup
+    .string()
+    .trim()
+    .matches(/[\w\-]/i),
+  url: yup.string().trim().url().required(),
+});
+
+app.post("/url", (req, res) => {});
 
 const port = process.env.PORT || 1337;
 
