@@ -40,7 +40,9 @@ app.post("/url", async (req, res) => {
       slug,
       url,
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
 
 const port = process.env.PORT || 1337;
