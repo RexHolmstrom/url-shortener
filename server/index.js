@@ -48,12 +48,12 @@ app.post("/url", async (req, res, next) => {
       }
     }
     slug = slug.toLowerCase();
-    const secret = nanoid(10).toLowerCase();
     const url = {
       slug,
       url,
-      secret,
     };
+    const created = await urls.insert(newUrl);
+    res.json(created);
   } catch (error) {
     next(error);
   }
