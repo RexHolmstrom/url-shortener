@@ -20,8 +20,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("./public"));
 
-//app.get("/url/:id", (req, res) => {});
-
 app.get("/:id", async (req, res, next) => {
   const { id: slug } = req.params;
   try {
@@ -29,9 +27,9 @@ app.get("/:id", async (req, res, next) => {
     if (url) {
       res.redirect(url.url);
     }
-    res.redirect("/?error=${slug} not found");
+    res.redirect(`/?error=${slug} not found`);
   } catch (error) {
-    next(error);
+    res.redirect(`/?error=Link not found`);
   }
 });
 
