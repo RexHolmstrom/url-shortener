@@ -3,7 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const yup = require("yup");
-const nanoid = require("nanoid");
+const { nanoid } = require("nanoid");
 
 const app = express();
 
@@ -26,14 +26,14 @@ const schema = yup.object().shape({
 });
 
 app.post("/url", async (req, res, next) => {
-  const { slug, url } = req.body;
+  let { slug, url } = req.body;
   try {
     await schema.validate({
       slug,
       url,
     });
     if (!slug) {
-      slug = nanoid();
+      slug = nanoid(5);
     }
     slug = slug.toLowerCase();
     res.json({
@@ -48,6 +48,8 @@ app.post("/url", async (req, res, next) => {
 app.use((error, req, res, next) => {
   if (error.status) {
     res.status(error.status);
+  } else {
+    res.status(500);
   }
   res.json({
     message: error.message,
