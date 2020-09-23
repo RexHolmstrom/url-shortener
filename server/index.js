@@ -41,12 +41,19 @@ app.post("/url", async (req, res, next) => {
     });
     if (!slug) {
       slug = nanoid(5);
+    } else {
+      const existing = await urls.findOne({ slug });
+      if (existing) {
+        throw new error("Slug in use.. cmon man");
+      }
     }
     slug = slug.toLowerCase();
-    res.json({
+    const secret = nanoid(10).toLowerCase();
+    const url = {
       slug,
       url,
-    });
+      secret,
+    };
   } catch (error) {
     next(error);
   }
