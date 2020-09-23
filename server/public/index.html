@@ -10,5 +10,21 @@
     <header>
       <h1>Shorter URLS for a longer life!</h1>
     </header>
+
+    <main id="app">
+      <form @submited.prevent="createUrl()">
+        <label for="url">URL</label>
+        <input v-model="url" type="url" id="url" />
+
+        <label for="slug">Slug</label>
+        <input v-model="slug" type="slug" id="slug" />
+        <button type="submit">Create</button>
+      </form>
+    </main>
+    <pre>
+      {{JSON.stringy(created, null, 2)}}
+    </pre>
+    <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
